@@ -12,7 +12,7 @@ example config:
         "botUsername": "<bot-name>",
         "oauth": "<bot-oauth>",
         "prefix": "!",
-        "publicCommands": [
+        "sourceCommands": [
             "info-cmd, info-source, 30, 120",
             "car-cmd, car-source, 30, 120",
             "goal-cmd, goal-source, 30, 120",
