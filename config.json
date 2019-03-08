@@ -1,0 +1,18 @@
+{
+    "obs": {
+        "ip": "localhost:4444",
+        "password": ""
+    },
+    "twitchChat": {
+        "channel": "715209",
+        "botUsername": "715209",
+        "oauth": "oauth:YOUROAUTH",
+        "prefix": "!",
+        "sourceCommands": [
+            { "command": "info-cmd", "source": "info-souce", "duration": 30, "cooldown": 120 },
+            { "command": "car-cmd", "source": "car-source", "duration": 30, "cooldown": 120 },
+            { "command": "goal-cmd", "source": "goal-source", "duration": 30, "cooldown": 120 },
+            { "command": "plans-cmd", "source": "plans-source", "duration": 30, "cooldown": 120 }
+        ]
+    }
+}

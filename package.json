@@ -1,0 +1,33 @@
+{
+    "name": "control-obs-source",
+    "version": "0.1.0",
+    "description": "",
+    "main": "lib/app",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node ./lib/app",
+        "build": "babel src -d lib",
+        "dev": "nodemon --exec babel-node ./src/app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/715209/control-obs-source.git"
+    },
+    "author": "Brian Spit",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/715209/control-obs-source/issues"
+    },
+    "homepage": "https://github.com/715209/control-obs-source#readme",
+    "devDependencies": {
+        "@babel/cli": "^7.2.3",
+        "@babel/core": "^7.2.2",
+        "@babel/node": "^7.2.2",
+        "@babel/preset-env": "^7.2.3",
+        "nodemon": "^1.18.9"
+    },
+    "dependencies": {
+        "obs-websocket-js": "^2.0.1",
+        "ws": "^6.1.2"
+    }
+}
