@@ -53,18 +53,6 @@ class ObsSocket extends EventEmitter {
             this.connect();
         }, 5000);
     }
-
-    async toggleSource(item, duration) {
-        try {
-            await this.obs.send("SetSceneItemProperties", { item, visible: true });
-
-            setTimeout(() => {
-                this.obs.send("SetSceneItemProperties", { item, visible: false });
-            }, 1000 * duration);
-        } catch ({ error }) {
-            console.log("[OBS]", item, error);
-        }
-    }
 }
 
 export default ObsSocket;

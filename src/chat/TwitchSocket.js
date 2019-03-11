@@ -20,7 +20,10 @@ class Socket extends EventEmitter {
         this.cooldown = [];
 
         this.open();
-        this.registerCommands(settings.sourceCommands);
+        this.registerCommand({ command: "source", type: "command", usertype: "mod" });
+        this.registerConfigCommands(settings.sourceCommands);
+
+        this.obs.on("toggle", this.onToggleSource.bind(this));
 
         console.log("[TWITCH] Connecting to twitch");
     }
@@ -96,12 +99,19 @@ class Socket extends EventEmitter {
                 break;
             case "PRIVMSG":
                 if (msg[0] !== this.prefix) return;
+                const username = message.prefix.split("!")[0];
+                const command = msg.indexOf(" ") == -1 ? msg.slice(1) : msg.slice(1).substring(0, msg.indexOf(" ") - 1);
+                const args = msg.substr(msg.indexOf(" ") + 1);
 
-                const command = msg.slice(1);
+                if (
+                    this.cooldown.includes(command) ||
+                    !this.availableCommands.includes(command)
+                    // || (!this.availableCommands.includes(command) && message.tags.mod == true) ||
+                    // (!this.availableCommands.includes(command) && username === this.channel)
+                )
+                    return;
 
-                if (!this.availableCommands.includes(command) || this.cooldown.includes(command)) return;
-
-                this.handleSource(command);
+                this.handleCommands(command, args, username, message);
                 break;
         }
     }
