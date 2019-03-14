@@ -1,6 +1,6 @@
 {
     "name": "control-obs-source",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "",
     "main": "lib/app",
     "scripts": {
@@ -27,6 +27,7 @@
         "nodemon": "^1.18.9"
     },
     "dependencies": {
+        "fast-fuzzy": "^1.8.5",
         "obs-websocket-js": "^2.0.1",
         "ws": "^6.1.2"
     }

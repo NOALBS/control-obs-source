@@ -1,24 +1,29 @@
 import ObsSocket from "./ObsSocket";
+import { search } from "fast-fuzzy";
 
 class Obs extends ObsSocket {
     async toggleSource(item, duration) {
         try {
             // Grab current scene name so we can turn it off even if the scene is changed.
             const { name, sources } = await this.obs.send("GetCurrentScene");
-            const source = sources.find(source => source.name === item);
+            const res = search(item, sources, { keySelector: obj => obj.name });
+            const source = res.length > 0 ? res[0].name : item;
 
-            if (source.render) {
-                await this.obs.send("SetSceneItemProperties", { "scene-name": name, item, visible: false });
-                this.emit("toggle", { item, visible: false });
+            let data = { "scene-name": name, item: source, visible: false };
+
+            if (res[0].render) {
+                await this.obs.send("SetSceneItemProperties", data);
+                this.emit("toggle", data);
             } else {
-                this.obs.send("SetSceneItemProperties", { "scene-name": name, item, visible: true });
-                this.emit("toggle", { item, visible: true });
+                data.visible = true;
+                await this.obs.send("SetSceneItemProperties", data);
+                this.emit("toggle", data);
             }
 
             if (!duration) return;
 
             setTimeout(() => {
-                this.obs.send("SetSceneItemProperties", { "scene-name": name, item, visible: false });
+                this.obs.send("SetSceneItemProperties", data);
             }, 1000 * duration);
         } catch ({ error }) {
             console.log("[OBS]", item, error);
