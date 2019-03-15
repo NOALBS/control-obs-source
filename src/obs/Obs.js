@@ -24,6 +24,7 @@ class Obs extends ObsSocket {
 
             setTimeout(() => {
                 this.obs.send("SetSceneItemProperties", data);
+                this.emit("toggle", data);
             }, 1000 * duration);
         } catch ({ error }) {
             console.log("[OBS]", item, error);
