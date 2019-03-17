@@ -11,6 +11,11 @@ class ObsSocket extends EventEmitter {
 
         this.connect();
 
+        this.obs.on("ConnectionClosed", this.onDisconnect.bind(this));
+        this.obs.on("AuthenticationSuccess", this.onAuth.bind(this));
+        this.obs.on("AuthenticationFailure", this.onAuthFail.bind(this));
+        this.obs.on("error", this.error.bind(this));
+
         console.log("[OBS] Connecting & authenticating");
     }
 
@@ -18,11 +23,6 @@ class ObsSocket extends EventEmitter {
         this.obs.connect({ address: this.address, password: this.password }).catch(e => {
             // handle this somewhere else
         });
-
-        this.obs.on("ConnectionClosed", this.onDisconnect.bind(this));
-        this.obs.on("AuthenticationSuccess", this.onAuth.bind(this));
-        this.obs.on("AuthenticationFailure", this.onAuthFail.bind(this));
-        this.obs.on("error", this.error.bind(this));
     }
 
     onAuth() {
