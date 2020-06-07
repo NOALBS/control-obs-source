@@ -1,6 +1,6 @@
 # control-obs-source
 
-Control OBS sources or have a source show up for a certain amount. 
+Control OBS sources or have a source show up for a certain amount of time. 
 
 ## Build Prerequisities
 
